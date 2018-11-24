@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xml:lang="ru-RU" lang="ru-RU" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>FastForm</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <META http-equiv=Expires content="0" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+    <link href="assets/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="assets/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+    <script src="assets/js/jquery-2.1.1.js" type="text/javascript"></script>     
+    <script src="assets/js/jquery-ui-1.10.4.min.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.validate.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.maskedinput.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery-ui.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.form.min.js"></script>    
+    <script src="assets/js/jquery.fastform.js?a=8" type="text/javascript"></script>
+    <script src="assets/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <style>
+        body {
+            background-color: #E7EBF2;
+            font-family: 'Open Sans';
+            font-size: 13px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var dflast = '';
+        function sendForm855() { console.log($('#frmVal_Performance855').val()); }
+
+
+        function getDifferences(oldObj, newObj) {
+            var diff = {};
+
+            for (var k in oldObj) {
+                if (!(k in newObj))
+                    diff[k] = undefined;  // property gone so explicitly set it undefined
+                else if (oldObj[k] !== newObj[k])
+                    diff[k] = newObj[k];  // property in both but has changed
+            }
+
+            for (k in newObj) {
+                if (!(k in oldObj))
+                    diff[k] = newObj[k]; // property is new
+            }
+
+            return diff;
+        }
+
+
+        function ohm_Asset_onChange(e) {
+            return false;
+            //console.log('ddd',$(e).val());
+            var df = $('#container').fastForm('getSrchbleFormData', true), dfstr = JSON.stringify(df);
+            
+            if (dfstr == dflast) { console.log('нет изменений'); } else { console.log('ЕСТЬ изменения'); }
+
+            dflast = dfstr;
+            
+
+            //var defd = getDifferences(df, dflast);
+            //console.log('defd: ', JSON.stringify(defd));
+            //dflast = df;
+
+            return false;
+            //console.log('df: ', JSON.stringify(df));
+            if (!dflast || typeof dflast != 'object') { return null; } if (fvd.length == 0) { return null; }
+            $.each(df, function (i, itm) {
+
+                if (dflast[i] == itm) { console.log('нет изменений'); } else { console.log('ЕСТЬ изменения'); }
+
+                console.log(itm.name + ' (Поисковый: ' + itm.srchble + '): ', itm.val);
+            });
+
+            dflast = df;
+        }
+
+        function ohm_Asset_onChange2(e) {
+            var df = $('#container').fastForm('getSrchbleFormData', true);
+            console.log('df: ', JSON.stringify(df));
+        }
+        
+
+
+        $(function () {
+            var fd1 = [{ "name": "CustomerType", "title": "Тип заказчика", "type": "list", "value": "", "visible": true, "srchble": true, "triggers": [{ "val": "", "controls": [{ "name": "OrganizationFullName", "enable": false, "visible": true }] }, { "val": "organization", "controls": [{ "name": "OrganizationFullName", "enable": true, "visible": true }] }, { "val": "individual businessman", "controls": [{ "name": "OrganizationFullName", "enable": false, "visible": true }] }, { "val": "person", "controls": [{ "name": "OrganizationFullName", "enable": false, "visible": true }] }], "listdata": [{ "title": "Организация", "value": "organization" }, { "title": "Предприниматель (ИП)", "value": "individual businessman" }, { "title": "Частное лицо", "value": "person" }], "validrule": { "required": true, "messages": { "required": "Укажите тип заказчика" } } }
+, { "name": "OrganizationFullName", "title": "Полное название организации", "type": "text", "value": "", "visible": true, "srchble": true, "defval": "", "maxlen": 180, "validrule": { "required": true, "messages": { "required": "Введите полное название организации" } }, "visible": true, "enable": true }, { "name": "ContactPerson", "title": "Контактное лицо (ФИО)", "type": "text", "value": "", "defval": "Hostmaster Hostmaster", "maxlen": 180, "validrule": { "required": true, "messages": { "required": "Введите ФИО контактного лица" } } }, { "name": "Email", "title": "Email", "type": "email", "value": "", "defval": "support@dotnetnuke.ru", "validrule": { "required": true, "email": true, "messages": { "required": "Введите адрес электронной почты", "email": "Укажите действующий адрес электронной почты" } } }
+, { "name": "Phone", "title": "Телефон", "type": "phone", "value": "", "visible": true, "srchble": true, "defval": "+7 495 7618700", "mask": "+9 (999) 999-99-99", "plcholder": "+7", "validrule": { "required": true, "messages": { "required": "Укажите контактный телефон" } } }
+, { "name": "SIP", "title": "SIP", "type": "text", "value": "", "visible": true, "srchble": true, "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "Skype", "title": "Skype", "type": "text", "value": "", "visible": true, "srchble": false, "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "WhatsApp", "title": "WhatsApp", "type": "text", "value": "", "visible": true, "srchble": false, "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "Viber", "title": "Viber", "type": "text", "value": "", "visible": true, "srchble": true, "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "AttachDocs", "title": "", "type": "attachfiles", "value": [], "visible": true, "srchble": false, "infotext": "<i class=\"fa fa-info\"></i> Здесь Вы можете прикрепить бриф или техническое задание будущего проекта", "maxfiles": 5 }
+, { "name": "ProjectType", "title": "Тип проекта", "type": "list", "value": "", "visible": true, "srchble": false, "listdata": [{ "title": "Портал (сайт) для бизнеса", "value": "businesswebportal" }, { "title": "Портал бюджетной организации", "value": "govwebportal" }, { "title": "Интернет-магазин", "value": "ecommerce" }, { "title": "Доска объявлений", "value": "bbs" }, { "title": "База знаний", "value": "kb" }, { "title": "Образовательный портал", "value": "Educational-portal" }, { "title": "Персональный сайт", "value": "personalwebsite" }, { "title": "Интеграция", "value": "intergation" }], "validrule": { "required": true, "messages": { "required": "Укажите тип проекта" } } }, { "name": "Descript", "title": "Описание проекта", "type": "multitext", "value": "", "defval": "", "rows": 6, "maxlen": 0, "validrule": [] }
+, { "name": "Performance", "title": "Вычислительная мощность", "type": "rangeslider", "value": "", "visible": true, "srchble": false, "defval": "", "options": {
+    min: 25,
+    max: 100,    
+    prefix: "%",    
+    grid: true,
+    grid_snap: true,
+    step: 25
+}, "validrule": [],
+}
+            ];
+
+            var fd2 = [{"name":"OS","title":"ОС","type":"extlist","value":"","enable":true,"visible":true,"srchble":true,"triggers":[{"onval":null,"controls":[{"name":"WebServer","enable":true,"visible":true,"updatelistdata":true},{"name":"DBServer","enable":true,"visible":true,"updatelistdata":true}]}],"listsrcurl":"","listsrcname":"OH.SharedHosting.OS","listautoload":true,"validrule":{"required":true,"messages":{"required":"Укажите ОС"}}}
+,{"name":"WebServer","title":"Веб-сервер","type":"extlist","value":"","listsrcurl":"","listsrcname":"WebServers","enable":false,"visible":true,"srchble":true,"listautoload":false,"validrule":{"required":true,"messages":{"required":"Укажите CMS"}}}
+,{"name":"DBServer","title":"Веб-сервер","type":"extlist","value":"","listsrcurl":"","listsrcname":"DBServers","enable":false,"visible":true,"srchble":true,"listautoload":false,"validrule":{"required":true,"messages":{"required":"Укажите сервер баз данных"}}}
+,{"name":"AppQuote","title":"Кол-во приложений","type":"rangeslider","value":"","visible":true,"srchble":false,"options":{keyboard:true,keyboard_step:1,min:1,max:50,grid:true,grid_snap:true,step:1},"validrule":{"required":true,"messages":{"required":"Введите кол-во приложения"}}}
+,{"name":"DiskQuote","title":"Объем хранилища","type":"rangeslider","value":"","visible":true,"srchble":false,"options":{postfix:" Гб",keyboard:true,grid:true,grid_snap:true,values:[1,2,3,4,5,6,7,8,9,10,15,20,25,30,40,50,60,70,80,90,100,150,200,250,300,350,400,450,500,600,700,800,900,1024]},"validrule":{"required":true,"messages":{"required":"Введите объем хранилища"}}}
+,{"name":"PerformanceQuote","title":"Производительность","type":"rangeslider","value":"","visible":true,"srchble":false,"options":{keyboard:true,keyboard_step:25,min:25,max:100,postfix:"%",grid:true,grid_snap:true,step:25},"validrule":{"required":true,"messages":{"required":"Введите параметр производительности"}}}];
+
+            $('#container').fastForm({
+                formid: '#Form', modid: '855', dataForm: fd1,
+                onChange: function () { ohm_Asset_onChange(this); },
+                onChange_SrchbleFld: function () { ohm_Asset_onChange2(this); }
+});
+});
+    </script>
+</head>
+<body>
+    <form id="Form">
+    <div class="well">
+<div id="container" class="sky-form margin-bottom-20">
+    <fieldset>
+    <section>
+        <div class="row">
+            <div class="col col-12">
+                <p id="fldPane_Performance855"></p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col col-12">
+                <p id="fldPane_ProjectType855"></p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col col-12">
+                <p id="fldPane_Descript855"></p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col col-12"><p id="fldPane_AttachDocs855"></p></div>
+        </div>
+    </section>
+</fieldset>
+<header>Коротко о заказчике</header>
+<fieldset>
+    <section>
+        <div class="row">
+            <div class="col col-12">
+                <p id="fldPane_ProjectType855"></p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col col-6">
+                <p id="fldPane_CustomerType855"></p>
+            </div>
+            <div class="col col-6">
+                <p id="fldPane_OrganizationFullName855"></p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col col-12">
+                <p id="fldPane_ContactPerson855"></p>
+            </div>
+        </div>
+    </section>
+</fieldset>
+<header>Как с Вами связаться</header>
+<fieldset>
+    <section>
+        <div class="row">
+            <div class="col col-4">
+                <p id="fldPane_Email855"></p>
+            </div>
+            <div class="col col-4">
+                <p id="fldPane_Phone855"></p>
+            </div>
+            <div class="col col-4">
+                <p id="fldPane_SIP855"></p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col col-4">
+                <p id="fldPane_Skype855"></p>
+            </div>
+            <div class="col col-4">
+                <p id="fldPane_WhatsApp855"></p>
+            </div>
+            <div class="col col-4">
+                <p id="fldPane_Viber855"></p>
+            </div>
+        </div>
+    </section>
+</fieldset>
+<fieldset>
+    <section>
+        <div class="row">
+            <div class="col col-12"><button id="btnSendForm855" type="button" class="btn btn-primary" onclick="sendForm855()">Отправить</button></div>
+        </div>
+    </section>
+</fieldset>
+</div>
+        </div>
+        </form>
+</body>
+</html>

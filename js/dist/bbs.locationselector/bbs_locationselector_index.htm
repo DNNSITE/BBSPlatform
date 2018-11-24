@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xml:lang="ru-RU" lang="ru-RU" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Location Selector</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <META http-equiv=Expires content="0" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/bootstrap-select-1.10.0/css/bootstrap-select.min.css" />
+    
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/select2/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/select2/css/select2-bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    
+    <script src="assets/js/jquery-2.1.1.js" type="text/javascript"></script>     
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/jquery.form.min.js"></script>    
+    <script src="assets/js/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/select2/js/i18n/ru.js" type="text/javascript"></script>    
+    <script src="jquery.bbs.locationselector_1_4.js?a=1" type="text/javascript"></script>    
+ 
+    <style>
+        body {
+            background-color:E7EBF2;
+            font-family:'Open Sans';
+            font-size:13px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function getVal(){
+        var df=$('#container1').bbsCountryLocationSelector('getValue',true),dfstr=JSON.stringify(df);
+        console.log(df);
+        }        
+
+        $(function () {
+            var listSrcUrl='http://moyupravdom.ru/desktopmodules/ows/im.aspx?_OWS_=m:dnn_owsAppSrc,id:14885195-5073-93AD-F2CD-04D9547AF644';
+            //var listSrcUrl='';
+            //var d=[{"id":"7F0FE6FC-7C90-4FE8-A7C8-34EC1508A443","text":"Первый Дилер","subtext":"576576567","icnurl":"http://moyupravdom.ru/portals/0/images/dealers/3915c6114ebc45afb65678a2362f3c12.png.ashx?w=45&h=45&bgcolor=ffffff&scale=both"}];
+            $('#container1').bbsCountryLocationSelector({
+                localzRes:{fldSelectorPlaceholderText:'Выбор страны...'}
+                /*,dVal:'092f1818-fc80-4634-821a-66197b6d4fb3'*/
+                ,listSrcUrl:listSrcUrl                
+                ,listData:[]
+                ,modId:'855'
+                ,dVal:''
+                ,onChange:function(e){console.log('#container111 ',e.target.value);}
+            });
+
+
+            $('#container2').bbsCountryLocationSelector({
+                localzRes:{fldSelectorPlaceholderText:'Select location...'}
+                ,dVal:null
+                ,modId:''                        
+                ,listSrcUrl:listSrcUrl    
+                ,listData:[]
+                /*,filterByTypes:null*/
+                ,level:1 
+                /* 1: Регион
+                3: Район
+                4: Город
+                5: Внутригородская территория
+                6: Населенный пункт
+                7: Улицы
+                90: Дополнительная территория (ГСК, СНТ, лагери отдыха и т.п.)
+                91: Улицы на дополнительной территории (улицы, линии, проезды)*/
+                /*,filterByKind:null*/
+                ,markVisible:true
+                ,minimumResultsForSearch:0
+                ,minimumInputLength:0
+                ,allowClear:true
+                ,parentControl:null
+                ,fullPathTitleVisible:true
+                //,onChange:function(e){console.log('#container111 ',e.target.value);}
+            });
+
+
+            /*$('#container2').bbsLocationSelector1({
+                localzRes:{fldSelectorPlaceholderText:'Выберите аккаунт/договор222'}                
+                ,listSrcUrl:listSrcUrl                
+                ,listSrcApiKey:'D854896F-B5C2-4A9C-93E4-4E149D72AE8F'                          
+                ,filterListByTypeAcc:''
+                ,modId:'856'
+                ,dVal:'22222123'
+                ,onChange:function(e){console.log('#container2222 ',e.target.value);}
+            });*/
+
+});
+    </script>
+</head>
+<body>
+    <form id="Form">    
+        <div class=" margin-bottom-20">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="container1"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="container2"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button id="btnApply"  type="button" class="btn btn-primary" onclick="getVal()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

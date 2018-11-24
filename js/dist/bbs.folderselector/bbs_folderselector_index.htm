@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xml:lang="ru-RU" lang="ru-RU" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Location Selector</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <META http-equiv=Expires content="0" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/jstree/themes/default/style.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/bs-editable/css/bs-editable.css" />
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css" />
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/bs-editable/inputs-ext/jstree/jstree.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    
+    <script src="assets/js/jquery-2.1.1.js" type="text/javascript"></script>     
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/jstree/jstree.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.form.min.js"></script>    
+    <script src="assets/js/plugins/bs-editable/js/bootstrap-editable.min.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/bs-editable/inputs-ext/jstree/jstree.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/mockjax/jquery.mockjax.js" type="text/javascript"></script>    
+    <script src="jquery.bbs.folderselector_1_0.js?a=1" type="text/javascript"></script>    
+ 
+    <style>
+        body {
+            background-color:E7EBF2;
+            font-family:'Open Sans';
+            font-size:13px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function getVal(){
+        var df=$('#container').bbsLocationSelector1('getValue',true),dfstr=JSON.stringify(df);
+        console.log(df);
+        }        
+
+        $(function(){
+            var listSrcUrl='/127.0.0.1';
+            var d1={'url':listSrcUrl/*,'dataType':'json','cache':false*/
+            ,'data':function(node){console.log('111111 ',node); return {'id':node.id};}
+            ,'contentType':'application/json charset=utf-8'
+            ,'success':function(){consol.log('SUCCC')}
+            ,'error':function(){consol.log('ERROR')}
+            ,'complete':function(){consol.log('ERROR')}            
+            };            
+            
+            $.mockjaxSettings.responseTime=0; 
+            $.mockjax({
+                url:'/127.0.0.1',
+                response:function(settings){
+                    this.responseText=[{"id":"12699fe3-8f47-4c08-b16b-5ae6290a7ec6","parent":"#","text":"798089078970890","type":"root","children":true,"icon":"fa fa-folder"},{"id":"503dd1ef-0d65-462a-9503-80ff5d581eee","parent":"#","text":"sdfgqw3erg sdfgsdf","type":"root","children":true,"icon":"fa fa-folder"}];
+                    console.log(settings, this);                    
+                }        
+            });
+
+            $.fn.editableform.buttons='<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="fa fa-fw fa-check"></i></button><button type="button" class="btn btn-default btn-sm editable-cancel"><i class="fa fa-fw fa-times"></i></button>';
+
+            //var d=[{"id":"7F0FE6FC-7C90-4FE8-A7C8-34EC1508A443","text":"Первый Дилер","subtext":"576576567","icnurl":"http://moyupravdom.ru/portals/0/images/dealers/3915c6114ebc45afb65678a2362f3c12.png.ashx?w=45&h=45&bgcolor=ffffff&scale=both"}];
+            /*$('#container').bbsFolderSelector({                
+                listSrcApiKey:'5FF51184-77C9-4C5A-B78A-60ACF76D4459'                
+                ,modId:'855'
+                ,dVal:''
+                ,onChange:function(e){console.log('#container ',e.target.value);}
+            });*/
+
+
+            $('#tree')
+                .on('changed.jstree',function(e,data){var id=data.instance.get_node(data.selected).id;if(typeof id != "undefined"){/*settings.onSelect.call(this,data.instance.get_node(data.selected).id);*/}})
+                .jstree({
+                    "core":{
+                        'animation':0
+                        ,'multiple':false
+                        ,'check_callback':function (operation, node, parent, position, more){console.log('ddddddddddddd');return true;}
+                        //,'plugins':["themes", "json_data", "ui"]
+                        ,'themes':{'variant':'large','responsive':false,'dots':true}
+                        //,'data':null
+                        ,'strings':{'Loading ...':'Загрузка ...'}
+                        ,data:d1
+                    }
+                });
+
+
+        });
+    </script>
+</head>
+<body>
+    <form id="Form">    
+        <div class=" margin-bottom-20">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="container"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="tree" class="tree"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button id="btnApply"  type="button" class="btn btn-primary" onclick="getVal()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

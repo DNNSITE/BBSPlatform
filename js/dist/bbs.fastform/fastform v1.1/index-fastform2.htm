@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xml:lang="ru-RU" lang="ru-RU" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>FastForm</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <META http-equiv=Expires content="0" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+    <link href="assets/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="assets/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+    <script src="assets/js/jquery-2.1.1.js" type="text/javascript"></script>     
+    <script src="assets/js/jquery-ui-1.10.4.min.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.validate.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.maskedinput.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery-ui.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.form.min.js"></script>    
+    <script src="assets/js/jquery.fastform.js?a=8" type="text/javascript"></script>
+    <script src="assets/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <style>
+        body {
+            background-color: #E7EBF2;
+            font-family: 'Open Sans';
+            font-size: 13px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function sendForm855() { console.log($('#frmVal_Performance855').val()); }
+
+        function ohm_Asset_onChange(e) {
+            //console.log('ddd',$(e).val());
+            var df = $('#container').fastForm('getFormData', true);
+            //console.log('df: ', df);
+            $.each(df,function(i,itm){
+                console.log(itm.name+': ',itm.val);
+            });
+        }
+        
+
+
+        $(function () {
+            var fd1 = [{ "name": "CustomerType", "title": "Тип заказчика", "type": "list", "value": "", "triggers": [{ "val": "", "controls": [{ "name": "OrganizationFullName", "enable": false, "visible": true }] }, { "val": "organization", "controls": [{ "name": "OrganizationFullName", "enable": true, "visible": true }] }, { "val": "individual businessman", "controls": [{ "name": "OrganizationFullName", "enable": false, "visible": true }] }, { "val": "person", "controls": [{ "name": "OrganizationFullName", "enable": false, "visible": true }] }], "listdata": [{ "title": "Организация", "value": "organization" }, { "title": "Предприниматель (ИП)", "value": "individual businessman" }, { "title": "Частное лицо", "value": "person" }], "validrule": { "required": true, "messages": { "required": "Укажите тип заказчика" } } }, { "name": "OrganizationFullName", "title": "Полное название организации", "type": "text", "value": "", "defval": "", "maxlen": 180, "validrule": { "required": true, "messages": { "required": "Введите полное название организации" } }, "visible": true, "enable": true }, { "name": "ContactPerson", "title": "Контактное лицо (ФИО)", "type": "text", "value": "", "defval": "Hostmaster Hostmaster", "maxlen": 180, "validrule": { "required": true, "messages": { "required": "Введите ФИО контактного лица" } } }, { "name": "Email", "title": "Email", "type": "email", "value": "", "defval": "support@dotnetnuke.ru", "validrule": { "required": true, "email": true, "messages": { "required": "Введите адрес электронной почты", "email": "Укажите действующий адрес электронной почты" } } }
+, { "name": "Phone", "title": "Телефон", "type": "phone", "value": "", "defval": "+7 495 7618700", "mask": "+9 (999) 999-99-99", "plcholder": "+7", "validrule": { "required": true, "messages": { "required": "Укажите контактный телефон" } } }
+, { "name": "SIP", "title": "SIP", "type": "text", "value": "", "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "Skype", "title": "Skype", "type": "text", "value": "", "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "WhatsApp", "title": "WhatsApp", "type": "text", "value": "", "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "Viber", "title": "Viber", "type": "text", "value": "", "defval": "", "maxlen": 150, "validrule": [] }
+, { "name": "AttachDocs", "title": "", "type": "attachfiles", "value": [], "infotext": "<i class=\"fa fa-info\"></i> Здесь Вы можете прикрепить бриф или техническое задание будущего проекта", "maxfiles": 5 }
+, { "name": "ProjectType", "title": "Тип проекта", "type": "list", "value": "", "listdata": [{ "title": "Портал (сайт) для бизнеса", "value": "businesswebportal" }, { "title": "Портал бюджетной организации", "value": "govwebportal" }, { "title": "Интернет-магазин", "value": "ecommerce" }, { "title": "Доска объявлений", "value": "bbs" }, { "title": "База знаний", "value": "kb" }, { "title": "Образовательный портал", "value": "Educational-portal" }, { "title": "Персональный сайт", "value": "personalwebsite" }, { "title": "Интеграция", "value": "intergation" }], "validrule": { "required": true, "messages": { "required": "Укажите тип проекта" } } }, { "name": "Descript", "title": "Описание проекта", "type": "multitext", "value": "", "defval": "", "rows": 6, "maxlen": 0, "validrule": [] }
+, { "name": "Performance", "title": "Вычислительная мощность", "type": "rangeslider", "value": "", "defval": "", "options":{
+    min: 25,
+    max: 100,    
+    prefix: "%",    
+    grid: true,
+    grid_snap: true,
+    step: 25
+}, "validrule": [],
+}
+            ];
+
+            var fd2 = [{"name":"OS","title":"ОС","type":"extlist","value":"","enable":true,"visible":true,"srchble":true,"triggers":[{"onval":null,"controls":[{"name":"WebServer","enable":true,"visible":true,"updatelistdata":true},{"name":"DBServer","enable":true,"visible":true,"updatelistdata":true}]}],"listsrcurl":"","listsrcname":"OH.SharedHosting.OS","listautoload":true,"validrule":{"required":true,"messages":{"required":"Укажите ОС"}}}
+,{"name":"WebServer","title":"Веб-сервер","type":"extlist","value":"","listsrcurl":"","listsrcname":"WebServers","enable":false,"visible":true,"srchble":true,"listautoload":false,"validrule":{"required":true,"messages":{"required":"Укажите CMS"}}}
+,{"name":"DBServer","title":"Веб-сервер","type":"extlist","value":"","listsrcurl":"","listsrcname":"DBServers","enable":false,"visible":true,"srchble":true,"listautoload":false,"validrule":{"required":true,"messages":{"required":"Укажите сервер баз данных"}}}
+,{"name":"AppQuote","title":"Кол-во приложений","type":"rangeslider","value":"","visible":true,"srchble":false,"options":{keyboard:true,keyboard_step:1,min:1,max:50,grid:true,grid_snap:true,step:1},"validrule":{"required":true,"messages":{"required":"Введите кол-во приложения"}}}
+,{"name":"DiskQuote","title":"Объем хранилища","type":"rangeslider","value":"","visible":true,"srchble":false,"options":{postfix:" Гб",keyboard:true,grid:true,grid_snap:true,values:[1,2,3,4,5,6,7,8,9,10,15,20,25,30,40,50,60,70,80,90,100,150,200,250,300,350,400,450,500,600,700,800,900,1024]},"validrule":{"required":true,"messages":{"required":"Введите объем хранилища"}}}
+,{"name":"PerformanceQuote","title":"Производительность","type":"rangeslider","value":"","visible":true,"srchble":false,"options":{keyboard:true,keyboard_step:25,min:25,max:100,postfix:"%",grid:true,grid_snap:true,step:25},"validrule":{"required":true,"messages":{"required":"Введите параметр производительности"}}}];
+
+            $('#container').fastForm({
+                formid: '#Form', modid: '855', dataForm: fd2,
+                onChange: function () { ohm_Asset_onChange(this); }
+});
+});
+    </script>
+</head>
+<body>
+    <form id="Form">
+    <div class="col-sm-8">
+        <div class="sky-form">
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="label" for="frmVal_AssetName855">Наименование актива</label>
+                        <label class="input">
+                            <input type="text" name="frmVal_AssetName855" id="frmVal_AssetName855" maxlength="80">
+                        </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="label" for="frmVal_CustomDomain855">Получить временный домен</label>
+                        <label class="toggle pull-left"><input type="checkbox" name="frmVal_CustomDomain855" id="frmVal_CustomDomain855" value="1"><i></i></label>
+                    </section>
+                </div>
+            </fieldset>
+        </div>
+        <div id="domainAssetFormPane855" class="sky-form">
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="label" for="frmVal_Domain855">Доменное имя</label>
+                        <label class="input">
+                            <input type="text" name="frmVal_Domain855" id="frmVal_Domain855" maxlength="80">
+                        </label>
+                    </section>
+                    <section class="col col-3">
+                        <label class="label" for="frmVal_DNSEnable855">Использовать DNS провайдера</label>
+                        <label class="toggle pull-left"><input type="checkbox" name="frmVal_DNSEnable855" id="frmVal_DNSEnable855" value="1"><i></i></label>
+                    </section>                    
+                </div>
+            </fieldset>
+        </div>
+        <div class="sky-form">
+            <fieldset>
+                <div class="row">
+                    <section class="col col-4">
+                        <p id="fldPane_OS855"></p>
+                    </section>
+                    <section class="col col-4">
+                        <p id="fldPane_WebServer855"></p>
+                    </section>
+                    <section class="col col-4">
+                        <p id="fldPane_DBServer855"></p>
+                    </section>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <p id="fldPane_PerformanceQuote855"></p>
+                    </section>
+                    <section class="col col-6">
+                        <p id="fldPane_AppQuote855"></p>
+                    </section>
+                </div>
+                <div class="row">
+                    <section class="col col-12">
+                        <p id="fldPane_DiskQuote855"></p>
+                    </section>
+                </div>
+            </fieldset>
+            <footer>
+             
+            </footer>
+        </div>
+    </div>
+        </form>
+</body>
+</html>

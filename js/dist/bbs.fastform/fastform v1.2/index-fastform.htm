@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xml:lang="ru-RU" lang="ru-RU" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>FastForm</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <META http-equiv=Expires content="0" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+    
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link href="assets/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="assets/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="assets/js/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="assets/js/plugins/bs-editable/css/bs-editable.css" rel="stylesheet">
+    <link href="assets/js/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="assets/js/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
+    
+    <script src="assets/js/jquery-2.1.1.js" type="text/javascript"></script>     
+    <script src="assets/js/jquery-ui-1.10.4.min.js" type="text/javascript"></script>
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.validate.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.maskedinput.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery-ui.min.js"></script>
+    <script src="assets/js/plugins/sky-forms/version-2.0.1/js/jquery.form.min.js"></script>    
+    <script src="jquery.fastform_1.2.14.js?a=9" type="text/javascript"></script>
+    <script src="assets/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <script src="assets/js/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+
+    <script src="assets/js/plugins/select2/js/select2.full.min.js"></script> 
+    
+    <script src="assets/js/plugins/bs-editable/js/bootstrap-editable.min.js"></script>
+    <script src="assets/js/plugins/bs-agemaneditor/bs-agemaneditor.js"></script> 
+ 
+    <style>
+        body {
+            background-color: #E7EBF2;
+            font-family: 'Open Sans';
+            font-size: 13px;
+        }
+        .sky-form select option.plcholder {
+            font-style: italic;
+            color: #969696;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var dflast = '';
+        function sendForm855() { /*console.log($('#frmVal_Performance855').val());*/ }
+
+
+        function getDifferences(oldObj, newObj) {
+            var diff = {};
+
+            for (var k in oldObj) {
+                if (!(k in newObj))
+                    diff[k] = undefined;  // property gone so explicitly set it undefined
+                else if (oldObj[k] !== newObj[k])
+                    diff[k] = newObj[k];  // property in both but has changed
+            }
+
+            for (k in newObj) {
+                if (!(k in oldObj))
+                    diff[k] = newObj[k]; // property is new
+            }
+
+            return diff;
+        }
+
+
+        function ohm_Asset_onChange(e) {
+            return false;
+            //console.log('ddd',$(e).val());
+            var df = $('#container').fastForm('getSrchbleFormData', true), dfstr = JSON.stringify(df);
+            
+            if (dfstr == dflast) { console.log('нет изменений'); } else { console.log('ЕСТЬ изменения'); }
+
+            dflast = dfstr;
+            
+
+            //var defd = getDifferences(df, dflast);
+            //console.log('defd: ', JSON.stringify(defd));
+            //dflast = df;
+
+            return false;
+            //console.log('df: ', JSON.stringify(df));
+            if (!dflast || typeof dflast != 'object') { return null; } if (fvd.length == 0) { return null; }
+            $.each(df, function (i, itm) {
+
+                if (dflast[i] == itm) { console.log('нет изменений'); } else { console.log('ЕСТЬ изменения'); }
+
+                console.log(itm.name + ' (Поисковый: ' + itm.srchble + '): ', itm.val);
+            });
+
+            dflast = df;
+        }
+
+        function ohm_Asset_onChange2(e) {
+            var df = $('#container').fastForm('getSrchbleFormData', true);
+            console.log('df: ', JSON.stringify(df));
+        }
+        
+
+        function bbs_applyFilter855(){
+            var df = $('#container').fastForm('getShortFormData', true,true);
+            //console.log('df: ', JSON.stringify(df));
+            console.log('df: ',df);
+        }
+
+        function bbs_clearFilterForm855() {
+            $('#container').fastForm('clearForm');            
+            var df = $('#container').fastForm('getShortFormData', true, true);
+            //console.log('df: ', df);
+        }
+
+        $(function(){
+            var listSrcUrl = 'http://323.dnnsite.su/desktopmodules/ows/im.aspx?_OWS_=m:dnn_owsAppSrc,id:14457109-1037-50F2-2D7B-F92E790A4008';
+            var fd1 =[{"name":"volume","title":"Количество","type":"text","value":"","enable":true,"visible":true,"srchble":false,"validrule":{"required":true,"messages":{"required":""}}},{"name":"workeraccount","title":"Исполнитель","type":"accountselector","value":"","enable":true,"visible":true,"srchble":true,"validrule":{"required":true,"messages":{"required":""}}},{"name":"supplies","title":"Расходник","type":"mdselector","value":"","enable":true,"visible":true,"srchble":false,"validrule":{"required":true,"messages":{"required":""}} ,"listsrcurl":"" ,"shmguid":"97CBF92E-2CCD-45FA-B950-479B43823F74"}];
+ 
+            /*
+            $('#container').fastForm({
+                formid: '#Form', modid: '855', dataForm: fd1,
+                onChange: function () { ohm_Asset_onChange(this); },
+                onChange_SrchbleFld: function () { ohm_Asset_onChange2(this); }
+            });
+            */
+
+            $('#container').fastForm({
+                formId: '#Form'
+                , modId: '855'
+                , formData: fd1
+                , extListSrcUrl: listSrcUrl
+                ,onChange_SrchbleFld:function(){bbs_applyFilter855();}
+                /*,onChange_NotSrchbleFld:function(){ohm_Asset_notSrchbleFld_onChange[ModuleID, System](this);}*/
+            });
+
+            $('#user').editable({
+                selector: 'a'                
+                , pk: 1
+                , placement: "bottom"
+                ,success: function (response, newValue) {
+                    console.log(response,newValue);
+                    $('#child2').html('dddddddd');
+                    /*userModel.set('username', newValue);*/ //update backbone model
+                }
+                , display: function (value) {
+                    console.log($(this).attr('id'));
+                $(this).text('Один ребенок ('+value+ ' лет)');
+            } 
+            }
+            );
+                      
+        
+
+});
+    </script>
+</head>
+<body>
+    <form id="Form">    
+        <div id="container" class="margin-bottom-20">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="sky-form">
+<fieldset>
+    <section>
+        <div class="row">
+            <div class="col-md-6"><p id="fldPane_supplies855"></p></div>
+            <div class="col-md-6"><p id="fldPane_volume855"></p></div>
+        </div>
+    </section>
+</fieldset>      
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="pull-right1"><div class="btn-group" data-toggle="buttons"><label class="btn btn-primary btn-checkbox" data-toggle="tooltip" title="Вкл/выкл автообновление"><input id="frmAutoApplyFilter455" type="checkbox" onchange="bbs_onChangeAutoApplyFilter455()"><i class="fa fa-refresh"></i></label></div> <button id="btnApplyFilter855"  type="button" class="btn btn-primary" onclick="bbs_applyFilter855()">Показать</button> <button type="button" class="btn btn-default" data-toggle="tooltip" title="Очистить фильтр" onclick="    bbs_clearFilterForm855()"><i class="fa fa-trash-o"></i></button></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
