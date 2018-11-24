@@ -1,2 +1,3 @@
 img
-js\lib
+js/lib
+.gitignore
