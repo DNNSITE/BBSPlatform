@@ -7,8 +7,6 @@
 
 /* General */
 
-//function includeJS(scriptUrl){document.write('<script src="' + scriptUrl + '"></script>');}
-
 function bbs_getNewGuid(){function s4(){return Math.floor((1 + Math.random())*0x10000).toString(16).substring(1);}return s4()+s4()+'-'+s4()+'-'+s4()+'-'+s4()+'-'+s4()+s4()+s4();}
 
 function bbs_getUrlParam(p) {
@@ -431,8 +429,6 @@ function bbs_getDealerTypesSelectorTemp(s){
     ,hideSelection=function(selectedObject){return false;}
     ,getValue=function(isRaw){var d=$('#frmAccountGUID'+settings.modId).val();return d;};
 })(jQuery);
-
-
 
 /* Address selector */
 (function ($){
